@@ -6,15 +6,5 @@ pipeline {
                 sh 'echo revised'
             }
         }
-        stage('Sonarqube') {
-            environment {
-                scannerHome = tool 'SonarQube'
-            }
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
     }
 }
