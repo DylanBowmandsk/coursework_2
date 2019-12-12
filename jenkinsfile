@@ -22,18 +22,24 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":v1.0"
+          dockerImage = docker.build registry + ":v2.0"
         }
       }
     }
-    stage('Deploy Image') {
+    stage('Push Image') {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
           }
         }
-      }
+    }
+
+            }
+    stage('Deploy Image'){
+      steps{
+          sh 'ssh -t azureuser@52.166.177.106 kubectl set image deployments/serverjs serverjs=dbowma201/serverjs:v2.0'
+        }
     }
   }
 }
