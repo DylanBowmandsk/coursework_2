@@ -22,7 +22,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":v2.0"
+          dockerImage = docker.build registry + ":v3.0"
         }
       }
     }
@@ -38,7 +38,7 @@ pipeline {
             }
     stage('Deploy Image'){
       steps{
-          sh 'ssh -t azureuser@52.166.177.106 kubectl set image deployments/serverjs serverjs=dbowma201/serverjs:v2.0'
+          sh 'ssh -t azureuser@52.166.177.106 kubectl set image deployments/serverjs serverjs=dbowma201/serverjs:v3.0'
         }
     }
   }
