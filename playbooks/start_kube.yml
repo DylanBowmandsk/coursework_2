@@ -1,0 +1,21 @@
+- name: Configure Node VM
+  hosts: azure
+  user: azureuser
+  become: no
+
+  vars:
+    myResourceGroup: devops
+    myVM: production-node
+
+  tasks:
+  - name: Copy start.sh to Node
+    copy:
+     src: ./start.sh
+     dest: /home/azureuser/start.sh
+
+  - name: Edit Permissions
+    command: chmod +x start.sh
+
+  - name: Deploy Container
+    command: ./start.sh
+
