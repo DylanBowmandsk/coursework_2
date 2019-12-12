@@ -1,0 +1,22 @@
+- name: Configure Node VM
+  hosts: azure
+  user: azureuser
+  become: yes
+
+  vars:
+    myResourceGroup: devops
+    myVM: production-node
+
+  tasks:
+  - name: Copy configure.sh to Node
+    copy:
+     src: ./configure.sh
+     dest: /home/azureuser/configure.sh
+
+  - name: Edit Permissions
+    command: chmod +x configure.sh
+
+  - name: Run Instalation
+    command: ./configure.sh
+
+
